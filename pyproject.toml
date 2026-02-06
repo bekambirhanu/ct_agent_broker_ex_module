@@ -1,10 +1,9 @@
 [project]
-name = "ct-agent-broker-ex-module"
+name = "ct_agent_broker_ex_module"
 version = "0.1.0"
 description = "Exness broker module for CT Agent"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "MetaTrader5>=5.0",
     "pydantic>=2.0"
 ]
