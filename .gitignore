@@ -1,0 +1,6 @@
+# virtual environment
+.venv/
+# Local history
+.history/
+
+__pycache__/
