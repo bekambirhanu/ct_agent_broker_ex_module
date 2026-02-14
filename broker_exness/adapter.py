@@ -1,7 +1,7 @@
 import httpx
-from shared.shared.interfaces.broker import BaseBroker
-from shared.shared.config.Settings import Settings
-from ct_agent_nlp_parser_module.nlp_parser.schema import TradeOrder
+from shared.interfaces.broker import BaseBroker
+from shared.config.Settings import Settings
+from nlp_parser.schema import TradeOrder
 
 class ExnessBroker(BaseBroker):
     def __init__(self):
