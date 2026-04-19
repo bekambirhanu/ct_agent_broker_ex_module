@@ -33,7 +33,7 @@ class ExnessBroker(BaseBroker):
                     f"{self.bridge_url}/trade",
                     headers={"x_token":Settings.BRIDGE_SECRET_TOKEN},
                     json=payload,
-                    timeout=10.0
+                    timeout=7.0
                 )
                 return response.json()
             except (httpx.HTTPError, httpx.HTTPStatusError) as e:
@@ -41,6 +41,18 @@ class ExnessBroker(BaseBroker):
             except Exception as e:
                 return { "success": False, "error": str(e)}
 
-    def get_account_info(self):
+    async def get_account_info(self):
         # Similar logic to call bridge /account endpoint
-        pass
+        async with httpx.AsyncClient() as client:
+            try:
+                response = await client.get(
+                    f"{self.bridge_url}/account",
+                    headers={"x_token":Settings.BRIDGE_SECRET_TOKEN},
+                    params={"device_id": self.device_id},
+                    timeout=10.0
+                )
+                return response.json()
+            except (httpx.HTTPError, httpx.HTTPStatusError) as e:
+                return {"success": False, "error": str(e)}
+            except Exception as e:
+                return { "success": False, "error": str(e)}
