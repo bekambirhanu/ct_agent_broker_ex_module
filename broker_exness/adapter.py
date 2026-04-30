@@ -5,8 +5,11 @@ from nlp_parser.schema import TradeOrder
 from .constants import mt5
 
 class ExnessBroker(BaseBroker):
-    def __init__(self):
+    def __init__(self, login: str, password: str, server: str):
         self.bridge_url = Settings.MT5_BRIDGE_URL
+        self._login = login
+        self._password = password
+        self._server = server
 
     async def execute_order(self, order: TradeOrder) -> dict:
         payload = order.model_dump()
@@ -16,11 +19,11 @@ class ExnessBroker(BaseBroker):
         # Additional constants and configurations
         print(payload)
 
-        # Add Exness specific credentials for the bridge to use
+        # Add user-specific MT5 credentials for the bridge
         payload.update({
-            "login": Settings.MT5_LOGIN,
-            "password": Settings.MT5_PASSWORD,
-            "server": Settings.MT5_SERVER
+            "login": self._login,
+            "password": self._password,
+            "server": self._server
         })
 
         async with httpx.AsyncClient() as client:
